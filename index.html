@@ -1,0 +1,613 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="js/video.min.js"></script>
+	
+	<link href="css/video-js.css" rel="stylesheet" />
+	<link href="css/videojs-live-dvrux.min.css" rel="stylesheet">
+	
+    <!-- Brightcove quality picker -->
+    <link href="css/videojs-quality-menu.css" rel="stylesheet">
+    <script src="js/videojs-quality-menu.min.js"></script>
+</head>
+
+<body>
+	<style>
+		@font-face
+		{
+			
+			font-family: channelText;
+			src: url('font/channelText.ttf');
+		}
+		
+		body
+		{
+			margin: 0px;
+			width: 100.0vw;
+			height: 100.0vh;
+			background-color: #202021;
+			max-width: 700px;
+			margin-left: auto;
+			margin-right: auto;
+			user-select: none;
+		}
+		
+		.vjs-progress-control
+		{
+			cursor: unset !important;
+		}
+		
+		.vjs-progress-holder
+		{
+			display: none !important;
+		}
+		
+		.video-js
+		{
+			width: 100%;
+			height: 100%;
+			max-height: calc(100.0vw / 1.77);
+			margin-bottom: 20px;
+		}
+		
+		video
+		{
+			width: 100.0vw;
+			height: auto;
+		}
+		
+		.vjs-big-play-button
+		{
+			position: absolute !important;
+			left: calc(50.0vw - 45px) !important;
+			top: calc(50% - 24px) !important;
+			background-color: #e60000 !important;
+			overflow: hidden !important;
+			border-radius: 17px !important;
+			border: none !important;
+		}
+		
+		@media (pointer: fine) {
+			::-webkit-scrollbar
+			{
+				width: 15px;
+			}
+			::-webkit-scrollbar-thumb
+			{
+				background-color: grey;
+				border: 4px solid transparent;
+				border-radius: 20px;
+				background-clip: content-box;
+			}
+			.table tr:first-child
+			{
+				margin-top: -1px;
+			}
+			
+			.categories
+			{
+				cursor: pointer;
+			}
+			
+			.channelItem
+			{
+				cursor: pointer;
+			}
+			
+			.channelItem:hover		
+			{
+				background-color: #007373;
+			}
+		}
+		
+		@media (pointer: coarse) {
+			.categories
+			{
+				overflow: auto !important;
+			}
+		}
+		
+		.channelsHandler
+		{
+			height: calc(100.0vh - (100.0vw / 1.77) - 85px);
+			background-color: #202021;
+			padding: 0px 10px 60px 10px;
+			overflow: auto;
+			transition: opacity 0.2s linear;
+		}
+		
+		@media screen and (min-width: 700px)
+		{
+			video
+			{
+				border-radius: 4px;
+			}
+			
+			body
+			{
+				padding: 10px;
+				height: calc(100.0vh - 20px);
+				background-image: url('img/background.jpg');
+				background-position: center; /* Center the image */
+				background-repeat: no-repeat; /* Do not repeat the image */
+				background-size: cover;
+			}
+			
+			.video-js
+			{
+				border-radius: 4px;
+				max-height: 395px;
+			}
+			
+			.channelsHandler
+			{
+				height: calc(100.0vh - 395px - 105px);
+			}
+			
+			.vjs-big-play-button
+			{
+				left: calc(50% - 24px) !important;
+				top: calc((395px / 2) - 24px) !important;
+			}
+			
+			.categories
+			{
+				bottom: 30px !important;
+			}
+		}
+		
+		@media screen and (min-width: 570px)
+		{
+			.channelItem
+			{
+				display: inline-block;
+				min-width: calc(50% - 25px);
+				margin-bottom: 5px !important;
+			}
+			
+			.channelItem
+			{
+				margin-right: 3px;
+			}
+		}
+		
+		.channelItem
+		{
+			position: relative;
+			background-color: teal;
+			padding: 10px;
+			border-radius: 4px;
+			overflow: hidden;
+			margin-bottom: 10px;
+			transition: transform 0.2s linear, background-color 0.2s linear;
+			height: 31px;
+		}
+		
+		.channelItem.active
+		{
+			background-color: #005e5e;
+		}
+		
+		.channelItem:active
+		{
+			background-color: #005e5e;
+			transform: scale(0.95);
+		}
+		
+		.channelName
+		{
+			font-family: 'channelText';
+			color: white;
+			display: inline-block;
+			position: relative;
+			top: 1px;
+			font-size: 1.4rem;
+			text-transform: uppercase;
+		}
+		
+		.channelIcon
+		{
+			display: inline-block;
+			float: right;
+		}
+		
+		.channelIcon.mbc1
+		{
+			overflow: hidden;
+			border-radius: 4px;
+			padding: 3px 4px 3px 4px;
+			background-color: white;
+		}
+		
+		.channelIcon.mbc1 > img
+		{
+			height: 25px;
+		}
+		
+		.channelIcon.mbc2 > img
+		{
+			position: absolute;
+			height: 44px;
+			right: 21px;
+			top: 1px;
+		}
+		
+		.channelIcon.mbc3 > img
+		{
+			position: absolute;
+			height: 41px;
+			right: 24px;
+			top: 5px;
+		}
+		
+		.channelIcon.mbc4 > img {
+			position: absolute;
+			height: 51px;
+			right: 21px;
+			top: 1px;
+		}
+		
+		.channelIcon.mbc5 > img {
+			position: absolute;
+			height: 45px;
+			right: 31px;
+			top: 3px;
+		}
+		
+		.channelIcon.mbcdrama > img {
+			position: absolute;
+			height: 36px;
+			right: 13px;
+			top: 9px;
+		}
+		
+		.channelIcon.mbcdramaplus > img {
+			position: absolute;
+			height: 44px;
+			right: 6px;
+			top: 4px;
+		}
+		
+		.channelIcon.sbcch > img {
+			position: absolute;
+			height: 45px;
+			right: 13px;
+			top: 2px;
+		}
+
+		.channelIcon.cnar > img {
+			position: absolute;
+			height: 43px;
+			right: 8px;
+			top: 1px;
+		}
+		
+		.channelIcon.rtkid > img {
+			position: absolute;
+			height: 42px;
+			right: 22px;
+			top: 5px;
+			border-radius: 50%;
+			background-color: white;
+		}
+		
+		.channelIcon.ifilm > img {
+			position: absolute;
+			height: 32px;
+			right: 10px;
+			top: 8px;
+		}
+		
+		.pageHolder
+		{
+			background-color: #202021;
+		}
+		
+		.categories
+		{
+			background-color: rgba(255, 255, 255, 0.6);
+			border-radius: 15px;
+			text-align: left;
+			padding: 5px 7px;
+			overflow: auto;
+			white-space: nowrap;
+			padding-bottom: 6px;		
+			position: fixed;
+			bottom: 15px;
+			overflow: hidden;
+			left: 10px;
+			right: 10px;
+			margin-right: auto;
+			margin-left: auto;
+			max-width: 650px;
+		}
+		
+		.category {
+			font-family: 'channelText';
+			display: inline-block;
+			background-color: teal;
+			color: white;
+			padding: 5px 8px;
+			border-radius: 10px;
+			transition: background 0.2s linear;
+			font-size: 1.06rem;
+		}
+		
+		.category.active
+		{
+			background-color: #006666;
+		}
+	</style>
+
+	<div class="pageHolder">
+		<video id="videoPlayer" class="video-js" controls>
+			<source type="application/x-mpegURL" src="https://shls-mbcdramaksa-ak.akamaized.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8" />
+			<p class="vjs-no-js">
+				To view this video please enable JavaScript, and consider upgrading to a
+				web browser that
+				<a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+			</p>
+		</video>
+		
+		<div class="channelsHandler">
+			<div class="channelItem" onclick="openChannel(this, 0)">
+				<div class="channelName mbc1">
+					TEST - DEBUG
+				</div>
+				<div class="channelIcon mbc1">
+					<img src="img/mbc1logo.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 1)" data-value="AR FILM">
+				<div class="channelName mbc1">
+					MBC 1
+				</div>
+				<div class="channelIcon mbc1">
+					<img src="img/mbc1logo.png" />
+				</div>
+			</div>
+			<!--
+			<div class="channelItem" onclick="openChannel(2)">
+				<div class="channelName mbc1">
+					MBC 2
+				</div>
+				<div class="channelIcon mbc2">
+					<img src="img/mbc2logo.png" />
+				</div>
+			</div>
+			-->
+			<div class="channelItem" onclick="openChannel(this, 3)" data-value="AR CARTOON">
+				<div class="channelName mbc3">
+					MBC 3
+				</div>
+				<div class="channelIcon mbc3">
+					<img src="img/mbc3logo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 4)" data-value="AR FILM">
+				<div class="channelName mbc3">
+					MBC 4
+				</div>
+				<div class="channelIcon mbc4">
+					<img src="img/mbc4logo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 5)" data-value="AR FILM">
+				<div class="channelName mbc5">
+					MBC 5
+				</div>
+				<div class="channelIcon mbc5">
+					<img src="img/mbc5logo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 6)" data-value="AR FILM">
+				<div class="channelName mbcdrama">
+					MBC Drama
+				</div>
+				<div class="channelIcon mbcdrama">
+					<img src="img/mbcdramalogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 7)" data-value="AR FILM">
+				<div class="channelName mbcdramaplus">
+					MBC Drama Plus
+				</div>
+				<div class="channelIcon mbcdramaplus">
+					<img src="img/mbcdramaplus.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 17)" data-value="AR FILM">
+				<div class="channelName sbcch">
+					SBC Arabic
+				</div>
+				<div class="channelIcon sbcch">
+					<img src="img/sbclogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 18)" data-value="AR CARTOON">
+				<div class="channelName cnar">
+					CN Arabic
+				</div>
+				<div class="channelIcon cnar">
+					<img src="img/cnlogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 19)" data-value="AR CARTOON">
+				<div class="channelName mbc1">
+					Rotana Kids
+				</div>
+				<div class="channelIcon rtkid">
+					<img src="img/rotanakid.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 20)" data-value="FA FILM">
+				<div class="channelName mbc1">
+					IFILM PERSIAN
+				</div>
+				<div class="channelIcon ifilm">
+					<img src="img/ifilmlogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 21)" data-value="AR FILM">
+				<div class="channelName mbc1">
+					IFILM Arabic
+				</div>
+				<div class="channelIcon ifilm">
+					<img src="img/ifilmlogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 22)" data-value="EN FILM">
+				<div class="channelName mbc1">
+					IFILM English
+				</div>
+				<div class="channelIcon ifilm">
+					<img src="img/ifilmlogo.png" />
+				</div>
+			</div>
+		</div>
+		
+		<div class="categories">
+			<div class="category active">
+			ALL CHANNELS
+			</div>
+			<div class="category">
+			CARTOON CHANNELS
+			</div>
+			<div class="category">
+			NEWS CHANNELS
+			</div>
+			<div class="category">
+			SPORT CHANNELS
+			</div>
+			<div class="category">
+			EN CHANNELS
+			</div>
+			<div class="category">
+			FA CHANNELS
+			</div>
+			<div class="category">
+			AR CHANNELS
+			</div>		
+		</div>
+	</div>
+  <script>
+        var options = {
+            plugins: {
+                qualityMenu: {
+                    useResolutionLabels: true
+                }
+            },
+			controlBar: {
+				pictureInPictureToggle: false
+			}
+        };
+        var player = videojs('videoPlayer', options);
+        player.qualityMenu();
+    </script>
+</body>
+</html>
+
+<script>
+	function openChannel(caller, channelID)
+	{
+		document.querySelectorAll(".channelItem").forEach(channelItem =>
+		{
+			channelItem.className = "channelItem";
+		});
+		caller.className = "channelItem active";
+	
+		let newSource = null;
+		
+		if(channelID == 0) { // Debug
+			//newSource = "https://cdn.telewebion.com/tv3/live/playlist.m3u8?x_live_session=51517af9-9c22-4ad6-a254-6dc7414292dc";
+			//newSource = "https://shls-live-ak.akamaized.net/out/v1/0965e4d7deae49179172426cbfb3bc5e/index.m3u8";
+			//newSource = "https://ssc-news-ak.akamaized.net/out/v1/4af66d04e77349079c01c9bab46d8b28/index.m3u8";
+			//newSource = "https://sbc-prod-dub.shahid.net/out/v1/2eb1ad0f29984a339bc0fce4ce94dcbb/index.m3u8";
+			newSource = "https://saudi-tv-prod-dub.shahid.net/out/v1/5ae66b453b62403199811ab78da9982a/index.m3u8";
+		}
+		else if (channelID == 1) { // MBC 1
+			newSource = "https://shls-mbc1na-prod-dub.shahid.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8";		
+		}		
+		else if(channelID == 3) { // MBC 3
+			newSource = "https://shls-mbc3-prod-dub.shahid.net/out/v1/d5bbe570e1514d3d9a142657d33d85e6/index.m3u8";
+		}
+		else if(channelID == 4) { // MBC 4
+			newSource = "https://shls-mbc4-prod-dub.shahid.net/out/v1/c08681f81775496ab4afa2bac7ae7638/index.m3u8";
+		}	
+		else if(channelID == 5) { // MBC 5
+			newSource = "https://shls-mbc5-prod-dub.shahid.net/out/v1/2720564b6a4641658fdfb6884b160da2/index.m3u8";
+		}
+		else if(channelID == 6) { // MBC Drama
+			newSource = "https://shls-mbcdramaksa-ak.akamaized.net/out/v1/ce0f0762d89e4394a856c5fd13e43645/index.m3u8";
+		} 
+		else if(channelID == 7) { // MBC Drama Plus
+			newSource = "https://shls-mbcplusdrama-prod-dub.shahid.net/out/v1/97ca0ce6fc6142f4b14c0a694af59eab/index.m3u8";
+		} 
+		else if(channelID == 17) { // SBC
+			newSource = "https://sbc-prod-dub.shahid.net/out/v1/2eb1ad0f29984a339bc0fce4ce94dcbb/index.m3u8";
+		}
+		else if(channelID == 18) { // Cartoon Network
+			newSource = "https://shls-cartoon-net-prod-dub.shahid.net/out/v1/dc4aa87372374325a66be458f29eab0f/index.m3u8";
+		}
+		else if(channelID == 19) { // Rotana Kids
+			newSource = "https://shls-rotanakids-prod-dub.shahid.net/out/v1/df6e0eb3cdc4410b98209aafc8677cef/index.m3u8";
+		}
+		
+		else if(channelID == 20) { // IFILM Persian
+			newSource = "https://live.presstv.ir/ifilmlive/smil:ifilmtv.smil/playlist.m3u8";
+		}
+		else if(channelID == 21) { // IFILM Arabic
+			newSource = "https://live.presstv.ir/ifilmlive/smil:ifilmar.smil/playlist.m3u8";
+		}
+		else if(channelID == 22) { // IFILM English
+			newSource = "https://live1.presstv.ir/live/ifilmen.m3u8";
+		}
+		
+		if (newSource != null)
+		{
+			player.dispose();
+			
+			refreshVideoItem(newSource);
+			
+			let newplayer = videojs('videoPlayer', options);
+			newplayer.qualityMenu();
+			newplayer.play();
+			
+			player = newplayer;
+		}
+		
+		
+		/*
+		
+		else if (channelID == 2) { // MBC 2
+			newSource = "https://media2.streambrothers.com:1936/8122/8122/playlist.m3u8";		
+		}
+		*/
+	}
+	
+	function refreshVideoItem(newSource)
+	{
+		let oldVideo = document.querySelector("#videoPlayer");
+		if (oldVideo != null)
+			oldVideo.remove();
+		
+		let videoParent = document.createElement('video');
+		videoParent.id = "videoPlayer";
+		videoParent.className = "video-js";
+		videoParent.setAttribute("controls", true);
+		
+		let videoSource = document.createElement("source");
+		videoSource.type = "application/x-mpegURL";
+		videoSource.src = newSource;
+		
+		videoParent.appendChild(videoSource);
+		
+		document.querySelector(".pageHolder").insertBefore(videoParent, document.querySelector(".channelsHandler"));
+	}
+</script>
+
+<script src="js/scroller.js"></script>
