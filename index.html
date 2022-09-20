@@ -310,10 +310,9 @@
 			background-color: rgba(255, 255, 255, 0.6);
 			border-radius: 15px;
 			text-align: left;
-			padding: 5px 7px;
+			padding: 1px 0px;
 			overflow: auto;
-			white-space: nowrap;
-			padding-bottom: 6px;		
+			white-space: nowrap;		
 			position: fixed;
 			bottom: 15px;
 			overflow: hidden;
@@ -322,6 +321,7 @@
 			margin-right: auto;
 			margin-left: auto;
 			max-width: 650px;
+			border: 7px solid transparent;
 		}
 		
 		.category {
@@ -342,6 +342,7 @@
 	</style>
 
 	<div class="pageHolder">
+		<!--
 		<video id="videoPlayer" class="video-js" controls>
 			<source type="application/x-mpegURL" src="https://shls-mbcdramaksa-ak.akamaized.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8" />
 			<p class="vjs-no-js">
@@ -350,6 +351,7 @@
 				<a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
 			</p>
 		</video>
+		-->
 		
 		<div class="channelsHandler">
 			<div class="channelItem" onclick="openChannel(this, 0)">
@@ -505,8 +507,9 @@
 				pictureInPictureToggle: false
 			}
         };
-        var player = videojs('videoPlayer', options);
-        player.qualityMenu();
+        var player = null;
+		//videojs('videoPlayer', options);
+        //player.qualityMenu();
     </script>
 </body>
 </html>
@@ -514,6 +517,8 @@
 <script>
 	function openChannel(caller, channelID)
 	{
+		CacheValue("ActiveElement", caller.innerText);
+	
 		document.querySelectorAll(".channelItem").forEach(channelItem =>
 		{
 			channelItem.className = "channelItem";
@@ -527,7 +532,8 @@
 			//newSource = "https://shls-live-ak.akamaized.net/out/v1/0965e4d7deae49179172426cbfb3bc5e/index.m3u8";
 			//newSource = "https://ssc-news-ak.akamaized.net/out/v1/4af66d04e77349079c01c9bab46d8b28/index.m3u8";
 			//newSource = "https://sbc-prod-dub.shahid.net/out/v1/2eb1ad0f29984a339bc0fce4ce94dcbb/index.m3u8";
-			newSource = "https://saudi-tv-prod-dub.shahid.net/out/v1/5ae66b453b62403199811ab78da9982a/index.m3u8";
+			//newSource = "https://saudi-tv-prod-dub.shahid.net/out/v1/5ae66b453b62403199811ab78da9982a/index.m3u8";
+			newSource = "https://cdxaws-ak.akamaized.net/out/v1/2c43e2004e314788bf5dda482c8099c0/2481eb9dfde14284b2b8852302df4759/2243bbdf6b024b1ca9a192817021c761/manifest.m3u8";
 		}
 		else if (channelID == 1) { // MBC 1
 			newSource = "https://shls-mbc1na-prod-dub.shahid.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8";		
@@ -567,17 +573,9 @@
 			newSource = "https://live1.presstv.ir/live/ifilmen.m3u8";
 		}
 		
-		if (newSource != null)
-		{
-			player.dispose();
-			
-			refreshVideoItem(newSource);
-			
-			let newplayer = videojs('videoPlayer', options);
-			newplayer.qualityMenu();
-			newplayer.play();
-			
-			player = newplayer;
+		if (newSource != null) {
+			CacheValue("URL", newSource);
+			LoadVideo(newSource, true);
 		}
 		
 		
@@ -602,12 +600,126 @@
 		
 		let videoSource = document.createElement("source");
 		videoSource.type = "application/x-mpegURL";
-		videoSource.src = newSource;
-		
+		videoSource.src = newSource;	
 		videoParent.appendChild(videoSource);
 		
+		let errorText = document.createElement("p");
+		errorText.className = "vjs-no-js";
+		errorText.innerHTML = "To view this video please enable JavaScript, and consider upgrading to a web browser that <a href=\"https://videojs.com/html5-video-support/\" target=\"_blank\">supports HTML5 video</a>";
+		videoParent.appendChild(errorText);
+		
 		document.querySelector(".pageHolder").insertBefore(videoParent, document.querySelector(".channelsHandler"));
+	}
+	
+	function LoadVideo(newSource, autoplay)
+	{
+		if (player != null)
+			player.dispose();
+			
+		refreshVideoItem(newSource);
+			
+		let newplayer = videojs('videoPlayer', options);
+		newplayer.qualityMenu();
+		
+		if (autoplay) {
+			newplayer.play();
+		}
+			
+		player = newplayer;
+	}
+	
+	function CacheValue(key, value)
+	{
+		let lastChannel = localStorage.getItem("lastChannel");
+		if (lastChannel != null) {
+			try
+			{
+				lastChannel = JSON.parse(lastChannel);
+				lastChannel[key] = value;
+				localStorage.setItem("lastChannel", JSON.stringify(lastChannel));
+			}
+			catch {
+				let jsonObject = {};
+				jsonObject[key] = value;
+				localStorage.setItem("lastChannel", JSON.stringify(jsonObject));
+			}
+		}
+		else {
+			let jsonObject = {};
+			jsonObject[key] = value;
+			localStorage.setItem("lastChannel", JSON.stringify(jsonObject));
+		}
 	}
 </script>
 
 <script src="js/scroller.js"></script>
+
+<script>
+	(function() // after document load
+	{
+		let lastChannel = localStorage.getItem("lastChannel");
+		if (lastChannel != null) {
+			let succeded = false;
+			try {
+				lastChannel = JSON.parse(lastChannel);
+				if ('URL' in lastChannel) {
+					succeded = true;
+					LoadVideo(lastChannel.URL, false);
+				}
+
+				if ('Category' in lastChannel) {
+					for (let i = 0, categories = document.querySelector(".categories").children, j = categories.length; i < j; i++)
+					{
+						if (categories[i].innerText == lastChannel.Category) {
+							ActivateCategory(categories[i]);
+							break;
+						}
+					}
+				}
+				
+				if ('ActiveElement' in lastChannel) {
+					document.querySelectorAll(".channelItem").forEach(channelItem => 
+					{
+						if (channelItem.innerText == lastChannel.ActiveElement) {
+							channelItem.className = "channelItem active";
+						}
+						else {
+							channelItem.className = "channelItem";
+						}
+					});
+				}
+			}
+			catch {
+				
+			}
+			if (!succeded) {
+				LoadVideo("https://shls-mbc1na-prod-dub.shahid.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8", false);
+			}
+		}
+		else {
+			LoadVideo("https://shls-mbc1na-prod-dub.shahid.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8", false);
+		}
+	})();
+</script>
+
+<!--
+// Make full screen makes phone landscape
+
+https://developer.mozilla.org/en-US/docs/Web/API/Screen/orientation
+
+var e = document.getElementById('test')
+var observer = new MutationObserver(function (event) {
+  console.log(event)   
+})
+
+observer.observe(e, {
+  attributes: true, 
+  attributeFilter: ['class'],
+  childList: false, 
+  characterData: false
+})
+
+setTimeout(function () {
+  e.className = 'hello'
+}, 1000)
+-->

@@ -48,10 +48,12 @@
 		keepListening = false;
 	}
 	
-	function ActivateCategory(Element)
+	ActivateCategory = function(Element)
 	{
 		if (!Element.className.includes("active") && howmuchMoved < 5)
 		{
+			CacheValue("Category", Element.innerText);
+			
 			for(let i = 0, j = categoriesList.length; i < j; i++)
 			{
 				categoriesList[i].className = "category";
