@@ -6,7 +6,6 @@
 	<script src="js/video.min.js"></script>
 	
 	<link href="css/video-js.css" rel="stylesheet" />
-	<link href="css/videojs-live-dvrux.min.css" rel="stylesheet">
 	
     <!-- Brightcove quality picker -->
     <link href="css/videojs-quality-menu.css" rel="stylesheet">
@@ -52,21 +51,28 @@
 			margin-bottom: 20px;
 		}
 		
+		.vjs-big-play-button
+		{
+			position: absolute !important;
+			left: calc(50.0vw - 43px) !important;
+			top: calc(50% - 25px) !important;
+			background-color: #e60000 !important;
+			overflow: hidden !important;
+			border-radius: 20px !important;
+			border: none !important;
+			height: 50px !important;
+			width: 85px !important;
+		}
+		
+		.vjs-big-play-button .vjs-icon-placeholder:before
+		{
+			top: 3px !important;
+		}
+		
 		video
 		{
 			width: 100.0vw;
 			height: auto;
-		}
-		
-		.vjs-big-play-button
-		{
-			position: absolute !important;
-			left: calc(50.0vw - 45px) !important;
-			top: calc(50% - 24px) !important;
-			background-color: #e60000 !important;
-			overflow: hidden !important;
-			border-radius: 17px !important;
-			border: none !important;
 		}
 		
 		@media (pointer: fine) {
@@ -111,11 +117,11 @@
 		
 		.channelsHandler
 		{
-			height: calc(100.0vh - (100.0vw / 1.77) - 85px);
+			height: calc(100.0vh - (100.0vw / 1.77) - 75px);
 			background-color: #202021;
-			padding: 0px 10px 60px 10px;
+			padding: 0px 10px 50px 10px;
 			overflow: auto;
-			transition: opacity 0.2s linear;
+			transition: opacity 0.15s linear;
 		}
 		
 		@media screen and (min-width: 700px)
@@ -143,18 +149,24 @@
 			
 			.channelsHandler
 			{
-				height: calc(100.0vh - 395px - 105px);
+				height: calc(100.0vh - 395px - 110px) !important;
+				padding: 0px 10px 65px 10px !important;
 			}
 			
 			.vjs-big-play-button
 			{
-				left: calc(50% - 24px) !important;
-				top: calc((395px / 2) - 24px) !important;
+				left: calc(50% - 43px) !important;
+				top: calc((395px / 2) - 25px) !important;
+			}
+			
+			.categoriesHolder
+			{
+				display: none;
 			}
 			
 			.categories
 			{
-				bottom: 30px !important;
+				bottom: 25px !important;
 			}
 		}
 		
@@ -311,17 +323,26 @@
 			border-radius: 15px;
 			text-align: left;
 			padding: 1px 0px;
-			overflow: auto;
+			overflow: hidden;
 			white-space: nowrap;		
 			position: fixed;
-			bottom: 15px;
-			overflow: hidden;
+			bottom: 5px;
 			left: 10px;
 			right: 10px;
 			margin-right: auto;
 			margin-left: auto;
 			max-width: 650px;
 			border: 7px solid transparent;
+		}
+		
+		.categoriesHolder
+		{
+			position: fixed;
+			bottom: 0px;
+			height: 55px;
+			background-color: #202021;
+			left: 0px;
+			right: 0px;
 		}
 		
 		.category {
@@ -471,7 +492,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<div class="categoriesHolder"></div>
 		<div class="categories">
 			<div class="category active">
 			ALL CHANNELS
@@ -671,23 +692,26 @@
 					for (let i = 0, categories = document.querySelector(".categories").children, j = categories.length; i < j; i++)
 					{
 						if (categories[i].innerText == lastChannel.Category) {
-							ActivateCategory(categories[i]);
+							ActivateCategory(categories[i], true);
 							break;
 						}
 					}
 				}
 				
-				if ('ActiveElement' in lastChannel) {
-					document.querySelectorAll(".channelItem").forEach(channelItem => 
-					{
-						if (channelItem.innerText == lastChannel.ActiveElement) {
-							channelItem.className = "channelItem active";
-						}
-						else {
-							channelItem.className = "channelItem";
-						}
-					});
-				}
+				setTimeout(function() {
+					if ('ActiveElement' in lastChannel) {
+						document.querySelectorAll(".channelItem").forEach(channelItem => 
+						{
+							if (channelItem.innerText == lastChannel.ActiveElement) {
+								channelItem.className = "channelItem active";
+								channelItem.parentNode.scrollTo({top: channelItem.offsetTop, behavior: 'smooth'});
+							}
+							else {
+								channelItem.className = "channelItem";
+							}
+						});
+					}
+				}, 200);
 			}
 			catch {
 				

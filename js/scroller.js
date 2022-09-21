@@ -11,7 +11,7 @@
 	{
 		categoriesList[i].onclick = function(e)
 		{
-			ActivateCategory(e.target);
+			ActivateCategory(e.target, false);
 		};
 	}
 	
@@ -46,9 +46,10 @@
 	function handleMouseUp()
 	{
 		keepListening = false;
+		howmuchMoved = 0;
 	}
 	
-	ActivateCategory = function(Element)
+	ActivateCategory = function(Element, Scroll)
 	{
 		if (!Element.className.includes("active") && howmuchMoved < 5)
 		{
@@ -60,6 +61,10 @@
 			}
 			
 			Element.className = "category active";
+			
+			if (Scroll) {
+				Element.parentNode.scrollTo({left: Element.offsetLeft, behavior: 'smooth'});
+			}
 			
 			const ElementCategory = Element.innerText.substr(0, Element.innerText.indexOf(' '));
 			if (ElementCategory == "ALL")
@@ -113,6 +118,6 @@
 				}
 			});
 			channelsHandler.style.opacity = 1;
-		}, 200);
+		}, 150);
 	}
 })();
