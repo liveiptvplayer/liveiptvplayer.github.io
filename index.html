@@ -129,6 +129,7 @@
 			padding: 0px 10px 50px 10px;
 			overflow: auto;
 			transition: opacity 0.15s linear;
+			position: relative;
 		}
 		
 		@media screen and (min-width: 700px)
@@ -289,6 +290,14 @@
 			top: 4px;
 		}
 		
+		.channelIcon.mbcbollywood > img {
+			position: absolute;
+			height: 40px;
+			right: 6px;
+			top: 5px;
+			width: 90px;
+		}
+		
 		.channelIcon.sbcch > img {
 			position: absolute;
 			height: 45px;
@@ -312,11 +321,65 @@
 			background-color: white;
 		}
 		
+		.channelIcon.thirkyat > img {
+			position: absolute;
+			height: 46px;
+			right: 12px;
+			top: 2px;
+		}
+		
 		.channelIcon.ifilm > img {
 			position: absolute;
 			height: 32px;
 			right: 10px;
 			top: 8px;
+		}
+		
+		.channelIcon.mbcmasr > img {
+			position: absolute;
+			height: 43px;
+			right: 12px;
+			top: 5px;
+		}
+		
+		.channelIcon.mbcmasr2 > img {
+			position: absolute;
+			height: 41px;
+			right: 22px;
+			top: 5px;
+			border-radius: 3px;
+		}
+		
+		.channelIcon.mbciraq > img {
+			position: absolute;
+			height: 34px;
+			right: 8px;
+			top: 9px;
+			width: 79px;
+		}
+		
+		.channelIcon.mbcfm > img {
+			position: absolute;
+			height: 41px;
+			right: 8px;
+			top: 5px;
+			width: 79px;
+		}
+		
+		.channelIcon.mbcpersia > img {
+			position: absolute;
+			height: 41px;
+			right: 4px;
+			top: 5px;
+			border-radius: 3px;
+		}
+		
+		.channelIcon.panoramafm > img {
+			position: absolute;
+			height: 41px;
+			right: 5px;
+			top: 5px;
+			border-radius: 5px;
 		}
 		
 		.pageHolder
@@ -417,6 +480,7 @@
 					<img src="img/mbc3logo.png" />
 				</div>
 			</div>
+			<!--
 			<div class="channelItem" onclick="openChannel(this, 4)" data-value="AR FILM">
 				<div class="channelName mbc3">
 					MBC 4
@@ -425,6 +489,7 @@
 					<img src="img/mbc4logo.png" />
 				</div>
 			</div>
+			-->
 			<div class="channelItem" onclick="openChannel(this, 5)" data-value="AR FILM">
 				<div class="channelName mbc5">
 					MBC 5
@@ -449,6 +514,62 @@
 					<img src="img/mbcdramaplus.png" />
 				</div>
 			</div>
+			<div class="channelItem" onclick="openChannel(this, 8)" data-value="AR FILM">
+				<div class="channelName mbcbollywood">
+					MBC Bollywood
+				</div>
+				<div class="channelIcon mbcbollywood">
+					<img src="img/mbcbollywood.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 9)" data-value="AR FILM">
+				<div class="channelName mbcmasr">
+					MBC Masr
+				</div>
+				<div class="channelIcon mbcmasr">
+					<img src="img/mbcmasrlogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 10)" data-value="AR FILM">
+				<div class="channelName mbcmasr2">
+					MBC Masr 2
+				</div>
+				<div class="channelIcon mbcmasr2">
+					<img src="img/mbcmasr2.jpg" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 11)" data-value="AR FILM">
+				<div class="channelName mbciraq">
+					MBC Iraq
+				</div>
+				<div class="channelIcon mbciraq">
+					<img src="img/mbciraqlogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 12)" data-value="AR MUSIC">
+				<div class="channelName mbcfm">
+					MBC FM
+				</div>
+				<div class="channelIcon mbcfm">
+					<img src="img/mbcfmlogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 13)" data-value="FA FILM">
+				<div class="channelName mbcpersia">
+					MBC Persia
+				</div>
+				<div class="channelIcon mbcpersia">
+					<img src="img/mbcpersialogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 14)" data-value="AR MUSIC">
+				<div class="channelName panoramafm">
+					Panorama FM
+				</div>
+				<div class="channelIcon panoramafm">
+					<img src="img/panoramafmlogo.jpg" />
+				</div>
+			</div>
 			<div class="channelItem" onclick="openChannel(this, 17)" data-value="AR FILM">
 				<div class="channelName sbcch">
 					SBC Arabic
@@ -471,6 +592,15 @@
 				</div>
 				<div class="channelIcon rtkid">
 					<img src="img/rotanakid.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 40)" data-value="AR FILM">
+				<div class="channelName thirkyat">
+					Thikrayat
+				</div>
+				<div class="channelIcon thirkyat">
+					<img src="img/thikryatlogo.png" />
 				</div>
 			</div>
 			
@@ -512,6 +642,10 @@
 			<div class="category">
 			<i class="fa-solid fa-film"></i>
 			FILM CHANNELS
+			</div>
+			<div class="category">
+			<i class="fa-solid fa-music"></i>
+			MUSIC CHANNELS
 			</div>
 			<div class="category">
 			<i class="fa-solid fa-newspaper"></i>
@@ -572,7 +706,8 @@
 			//newSource = "https://ssc-news-ak.akamaized.net/out/v1/4af66d04e77349079c01c9bab46d8b28/index.m3u8";
 			//newSource = "https://sbc-prod-dub.shahid.net/out/v1/2eb1ad0f29984a339bc0fce4ce94dcbb/index.m3u8";
 			//newSource = "https://saudi-tv-prod-dub.shahid.net/out/v1/5ae66b453b62403199811ab78da9982a/index.m3u8";
-			newSource = "https://cdxaws-ak.akamaized.net/out/v1/2c43e2004e314788bf5dda482c8099c0/2481eb9dfde14284b2b8852302df4759/2243bbdf6b024b1ca9a192817021c761/manifest.m3u8";
+			//newSource = "https://cdxaws-ak.akamaized.net/out/v1/2c43e2004e314788bf5dda482c8099c0/2481eb9dfde14284b2b8852302df4759/2243bbdf6b024b1ca9a192817021c761/manifest.m3u8";
+			newSource = "https://thikrayat-tv-prod-dub.shahid.net/out/v1/ef87956651694f4ba2ccc16e852dbb95/index.m3u8";
 		}
 		else if (channelID == 1) { // MBC 1
 			newSource = "https://shls-mbc1na-prod-dub.shahid.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8";		
@@ -581,7 +716,7 @@
 			newSource = "https://shls-mbc3-prod-dub.shahid.net/out/v1/d5bbe570e1514d3d9a142657d33d85e6/index.m3u8";
 		}
 		else if(channelID == 4) { // MBC 4
-			newSource = "https://shls-mbc4-prod-dub.shahid.net/out/v1/c08681f81775496ab4afa2bac7ae7638/index.m3u8";
+			newSource = "https://shls-mbc5-prod-dub.shahid.net/out/v1/c08681f81775496ab4afa2bac7ae7638/index.m3u8";
 		}	
 		else if(channelID == 5) { // MBC 5
 			newSource = "https://shls-mbc5-prod-dub.shahid.net/out/v1/2720564b6a4641658fdfb6884b160da2/index.m3u8";
@@ -591,7 +726,28 @@
 		} 
 		else if(channelID == 7) { // MBC Drama Plus
 			newSource = "https://shls-mbcplusdrama-prod-dub.shahid.net/out/v1/97ca0ce6fc6142f4b14c0a694af59eab/index.m3u8";
-		} 
+		}
+		else if(channelID == 8) { // MBC Bollywood
+			newSource = "https://shls-mbc3-prod-dub.shahid.net/out/v1/a79c9d7ef2a64a54a64d5c4567b3462a/index.m3u8";
+		}
+		else if(channelID == 9) { // MBC Masr
+			newSource = "https://shls-masr-ak.akamaized.net/out/v1/b7093401da27496797a8949de23f4578/index.m3u8";
+		}
+		else if(channelID == 10) { // MBC Masr 2
+			newSource = "https://shls-masr2-ak.akamaized.net/out/v1/f683685242b549f48ea8a5171e3e993a/index.m3u8";
+		}
+		else if(channelID == 11) { // MBC Iraq
+			newSource = "https://shls-iraq-prod-dub.shahid.net/out/v1/c9bf1e87ea66478bb20bc5c93c9d41ea/index.m3u8";
+		}
+		else if(channelID == 12) { // MBC FM
+			newSource = "https://mbcfm-riyadh-prod-dub.shahid.net/out/v1/69c8a03f507e422f99cf5c07291c9e3a/index.m3u8";
+		}
+		else if(channelID == 13) { // MBC Persia
+			newSource = "https://shls-mbcpersia-prod-dub.shahid.net/out/v1/bdc7cd0d990e4c54808632a52c396946/index.m3u8";
+		}
+		else if(channelID == 14) { // Panorama FM
+			newSource = "https://shls-panoramafm-prod-dub.shahid.net/out/v1/66262e420d824475aaae794dc2d69f14/index.m3u8";
+		}
 		else if(channelID == 17) { // SBC
 			newSource = "https://sbc-prod-dub.shahid.net/out/v1/2eb1ad0f29984a339bc0fce4ce94dcbb/index.m3u8";
 		}
@@ -600,6 +756,9 @@
 		}
 		else if(channelID == 19) { // Rotana Kids
 			newSource = "https://shls-rotanakids-prod-dub.shahid.net/out/v1/df6e0eb3cdc4410b98209aafc8677cef/index.m3u8";
+		}
+		else if(channelID == 40) { // Thikryat
+			newSource = "https://thikrayat-tv-prod-dub.shahid.net/out/v1/ef87956651694f4ba2ccc16e852dbb95/index.m3u8";
 		}
 		
 		else if(channelID == 20) { // IFILM Persian
