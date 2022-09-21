@@ -7,6 +7,8 @@
 	
 	<link href="css/video-js.css" rel="stylesheet" />
 	
+	<link href="fontawesome/fontawesome/all.css" rel="stylesheet" />
+	
     <!-- Brightcove quality picker -->
     <link href="css/videojs-quality-menu.css" rel="stylesheet">
     <script src="js/videojs-quality-menu.min.js"></script>
@@ -66,13 +68,18 @@
 		
 		.vjs-big-play-button .vjs-icon-placeholder:before
 		{
-			top: 3px !important;
+			top: 2px !important;
 		}
 		
 		video
 		{
 			width: 100.0vw;
 			height: auto;
+		}
+		
+		i.fa-solid
+		{
+			margin-right: 3px;
 		}
 		
 		@media (pointer: fine) {
@@ -495,24 +502,35 @@
 		<div class="categoriesHolder"></div>
 		<div class="categories">
 			<div class="category active">
+			<i class="fa-solid fa-filter-slash"></i>
 			ALL CHANNELS
 			</div>
 			<div class="category">
+			<i class="fa-solid fa-child"></i>
 			CARTOON CHANNELS
 			</div>
 			<div class="category">
+			<i class="fa-solid fa-film"></i>
+			FILM CHANNELS
+			</div>
+			<div class="category">
+			<i class="fa-solid fa-newspaper"></i>
 			NEWS CHANNELS
 			</div>
 			<div class="category">
+			<i class="fa-solid fa-futbol"></i>
 			SPORT CHANNELS
 			</div>
 			<div class="category">
+			<i class="fa-solid fa-language"></i>
 			EN CHANNELS
 			</div>
 			<div class="category">
+			<i class="fa-solid fa-language"></i>
 			FA CHANNELS
 			</div>
 			<div class="category">
+			<i class="fa-solid fa-language"></i>
 			AR CHANNELS
 			</div>		
 		</div>

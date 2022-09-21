@@ -11,7 +11,7 @@
 	{
 		categoriesList[i].onclick = function(e)
 		{
-			ActivateCategory(e.target, false);
+			ActivateCategory(e.target, true);
 		};
 	}
 	
@@ -51,22 +51,24 @@
 	
 	ActivateCategory = function(Element, Scroll)
 	{
+		if (Element.tagName === "I")
+			Element = Element.parentNode;
+		
 		if (!Element.className.includes("active") && howmuchMoved < 5)
 		{
 			CacheValue("Category", Element.innerText);
 			
-			for(let i = 0, j = categoriesList.length; i < j; i++)
-			{
+			for(let i = 0, j = categoriesList.length; i < j; i++) {
 				categoriesList[i].className = "category";
 			}
 			
 			Element.className = "category active";
 			
 			if (Scroll) {
-				Element.parentNode.scrollTo({left: Element.offsetLeft, behavior: 'smooth'});
+				Element.parentNode.scrollTo({left: (Element.offsetLeft - (Element.parentNode.clientWidth / 2) + (Element.clientWidth / 2)), behavior: 'smooth'});
 			}
-			
-			const ElementCategory = Element.innerText.substr(0, Element.innerText.indexOf(' '));
+			let ElementText = Element.innerText.trimStart();
+			const ElementCategory = ElementText.substr(0, ElementText.indexOf(' '));
 			if (ElementCategory == "ALL")
 			{
 				ShowElements(null);
