@@ -321,6 +321,27 @@
 			background-color: white;
 		}
 		
+		.channelIcon.spacetoon > img {
+			position: absolute;
+			height: 42px;
+			right: 8px;
+			top: 4px;
+		}
+		
+		.channelIcon.majidkids > img {
+			position: absolute;
+			height: 39px;
+			right: 5px;
+			top: 6px;
+		}
+		
+		.channelIcon.gulliarabic > img {
+			position: absolute;
+			height: 42px;
+			right: 22px;
+			top: 5px;
+		}
+		
 		.channelIcon.thirkyat > img {
 			position: absolute;
 			height: 46px;
@@ -430,6 +451,31 @@
 		{
 			background-color: #006666;
 		}
+		
+		.channelItem[data-brokenimg="true"] {
+			background: linear-gradient(130deg, #044b6c, #25a391);
+		}
+		
+		.channelItem.active[data-brokenimg="true"] {
+			background: linear-gradient(130deg, #033850, #087465);
+		}
+		.channelIcon.brokenimg {
+			display: none;
+		}
+		
+		.channelItem[data-brokenimg="true"][data-value~="SPORTS"] > .channelName:before {
+			content: "\f1e3";
+			font-family: 'Font Awesome 6 Pro';
+			font-weight: 900;
+			margin-right: 2px;
+		}
+		
+		.channelItem[data-brokenimg="true"][data-value~="NEWS"] > .channelName:before {
+			content: "\f1ea";
+			font-family: 'Font Awesome 6 Pro';
+			font-weight: 900;
+			margin-right: 2px;
+		}
 	</style>
 
 	<div class="pageHolder">
@@ -479,8 +525,7 @@
 				<div class="channelIcon mbc3">
 					<img src="img/mbc3logo.png" />
 				</div>
-			</div>
-			<!--
+			</div>		
 			<div class="channelItem" onclick="openChannel(this, 4)" data-value="AR FILM">
 				<div class="channelName mbc3">
 					MBC 4
@@ -489,7 +534,6 @@
 					<img src="img/mbc4logo.png" />
 				</div>
 			</div>
-			-->
 			<div class="channelItem" onclick="openChannel(this, 5)" data-value="AR FILM">
 				<div class="channelName mbc5">
 					MBC 5
@@ -587,13 +631,38 @@
 				</div>
 			</div>
 			<div class="channelItem" onclick="openChannel(this, 19)" data-value="AR CARTOON">
-				<div class="channelName mbc1">
+				<div class="channelName rtkid">
 					Rotana Kids
 				</div>
 				<div class="channelIcon rtkid">
 					<img src="img/rotanakid.png" />
 				</div>
 			</div>
+			<div class="channelItem" onclick="openChannel(this, 20)" data-value="AR CARTOON">
+				<div class="channelName spacetoon">
+					Spacetoon
+				</div>
+				<div class="channelIcon spacetoon">
+					<img src="img/spacetoonlogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 23)" data-value="AR CARTOON">
+				<div class="channelName majidkids">
+					Majid Kids
+				</div>
+				<div class="channelIcon majidkids">
+					<img src="img/majidkidslogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 24)" data-value="AR CARTOON">
+				<div class="channelName gulliarabic">
+					Gulli Arabic
+				</div>
+				<div class="channelIcon gulliarabic">
+					<img src="img/gullilogo.png" />
+				</div>
+			</div>
+			
 			
 			<div class="channelItem" onclick="openChannel(this, 40)" data-value="AR FILM">
 				<div class="channelName thirkyat">
@@ -605,7 +674,7 @@
 			</div>
 			
 			<div class="channelItem" onclick="openChannel(this, 20)" data-value="FA FILM">
-				<div class="channelName mbc1">
+				<div class="channelName ifilm">
 					IFILM PERSIAN
 				</div>
 				<div class="channelIcon ifilm">
@@ -613,7 +682,7 @@
 				</div>
 			</div>
 			<div class="channelItem" onclick="openChannel(this, 21)" data-value="AR FILM">
-				<div class="channelName mbc1">
+				<div class="channelName ifilm">
 					IFILM Arabic
 				</div>
 				<div class="channelIcon ifilm">
@@ -621,11 +690,43 @@
 				</div>
 			</div>
 			<div class="channelItem" onclick="openChannel(this, 22)" data-value="EN FILM">
-				<div class="channelName mbc1">
+				<div class="channelName ifilm">
 					IFILM English
 				</div>
 				<div class="channelIcon ifilm">
 					<img src="img/ifilmlogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 30)" data-brokenimg="true" data-value="EN SPORTS">
+				<div class="channelName">
+					Bein Sports XTRA
+				</div>
+				<div class="channelIcon brokenimg">
+					<img src="img/mbc1logo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 31)" data-brokenimg="true" data-value="EN SPORTS">
+				<div class="channelName">
+					Fox Sports
+				</div>
+				<div class="channelIcon brokenimg">
+					<img src="img/mbc1logo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 32)" data-brokenimg="true" data-value="AR NEWS">
+				<div class="channelName">
+					Al Jazeera Arabic
+				</div>
+				<div class="channelIcon brokenimg">
+					<img src="img/mbc1logo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 33)" data-brokenimg="true" data-value="EN NEWS">
+				<div class="channelName">
+					Al Jazeera English
+				</div>
+				<div class="channelIcon brokenimg">
+					<img src="img/mbc1logo.png" />
 				</div>
 			</div>
 		</div>
@@ -653,7 +754,7 @@
 			</div>
 			<div class="category">
 			<i class="fa-solid fa-futbol"></i>
-			SPORT CHANNELS
+			SPORTS CHANNELS
 			</div>
 			<div class="category">
 			<i class="fa-solid fa-language"></i>
@@ -707,7 +808,27 @@
 			//newSource = "https://sbc-prod-dub.shahid.net/out/v1/2eb1ad0f29984a339bc0fce4ce94dcbb/index.m3u8";
 			//newSource = "https://saudi-tv-prod-dub.shahid.net/out/v1/5ae66b453b62403199811ab78da9982a/index.m3u8";
 			//newSource = "https://cdxaws-ak.akamaized.net/out/v1/2c43e2004e314788bf5dda482c8099c0/2481eb9dfde14284b2b8852302df4759/2243bbdf6b024b1ca9a192817021c761/manifest.m3u8";
-			newSource = "https://thikrayat-tv-prod-dub.shahid.net/out/v1/ef87956651694f4ba2ccc16e852dbb95/index.m3u8";
+			//newSource = "https://thikrayat-tv-prod-dub.shahid.net/out/v1/ef87956651694f4ba2ccc16e852dbb95/index.m3u8";
+			//newSource = "https://dai.google.com/linear/hls/event/3e-9BOvHQrCI9hboMYjb6w/master.m3u8";
+			
+			
+			//featuredImage.jpg
+			//newSource = "https://stitcher.pluto.tv/stitch/hls/channel/5df975e2b27cf5000921c102/master.m3u8?advertisingId=&appName=web&appVersion=6.5.0-9ff1ee0d9e1e1c67db8f8817391f92b423bc8726&app_name=web&clientDeviceType=0&clientID=03301a0d-2734-4c32-8562-744ec42925ee&clientModelNumber=1.0.0&country=US&deviceDNT=false&deviceId=03301a0d-2734-4c32-8562-744ec42925ee&deviceLat=40.7425&deviceLon=-73.9877&deviceMake=chrome&deviceModel=web&deviceType=web&deviceVersion=105.0.0&marketingRegion=US&serverSideAds=true&sessionID=4987fba7-39ec-11ed-b058-0242ac110003&sid=4987fba7-39ec-11ed-b058-0242ac110003&userId=&masterJWTPassthrough=true&gdpr=1&paln=&eventVOD=true";
+			// ^ Being Sports
+			//newSource = "https://stitcher.pluto.tv/stitch/hls/channel/5a74b8e1e22a61737979c6bf/master.m3u8?advertisingId=&appName=web&appVersion=6.5.0-9ff1ee0d9e1e1c67db8f8817391f92b423bc8726&app_name=web&clientDeviceType=0&clientID=03301a0d-2734-4c32-8562-744ec42925ee&clientModelNumber=1.0.0&country=US&deviceDNT=false&deviceId=03301a0d-2734-4c32-8562-744ec42925ee&deviceLat=40.7425&deviceLon=-73.9877&deviceMake=chrome&deviceModel=web&deviceType=web&deviceVersion=105.0.0&marketingRegion=US&serverSideAds=true&sessionID=4987fba7-39ec-11ed-b058-0242ac110003&sid=4987fba7-39ec-11ed-b058-0242ac110003&userId=&masterJWTPassthrough=true&gdpr=1&paln=&eventVOD=true";
+			// ^ Fox Sports
+			//newSource = "https://stitcher.pluto.tv/stitch/hls/channel/60fb00b4b6455d0007493b0b/master.m3u8?advertisingId=&appName=web&appVersion=6.5.0-9ff1ee0d9e1e1c67db8f8817391f92b423bc8726&app_name=web&clientDeviceType=0&clientID=03301a0d-2734-4c32-8562-744ec42925ee&clientModelNumber=1.0.0&country=US&deviceDNT=false&deviceId=03301a0d-2734-4c32-8562-744ec42925ee&deviceLat=40.7425&deviceLon=-73.9877&deviceMake=chrome&deviceModel=web&deviceType=web&deviceVersion=105.0.0&marketingRegion=US&serverSideAds=true&sessionID=4987fba7-39ec-11ed-b058-0242ac110003&sid=4987fba7-39ec-11ed-b058-0242ac110003&userId=&masterJWTPassthrough=true&gdpr=1&paln=&eventVOD=true";
+			// ^ BBC Kids
+			//newSource = "https://vs-hls-pushb-ww-live.akamaized.net/x=3/i=urn:bbc:pips:service:bbc_arabic_tv/pc_hd_abr_v2.m3u8";
+			// BBC News Arabic
+			
+			//newSource = "https://vs-hls-pushb-ww-live.akamaized.net/x=3/i=urn:bbc:pips:service:bbc_persian_tv/pc_hd_abr_v2.m3u8";
+			// BBC News Persian
+			
+			//newSource = "https://vs-hls-push-uk-live.akamaized.net/x=3/i=urn:bbc:pips:service:bbc_news_channel_hd/pc_hd_abr_v2.m3u8";
+			
+			newSource = "http://myott.top/stream/DT6QU63K5VX/85.m3u8?checkedby:iptvcat.com";
+			
 		}
 		else if (channelID == 1) { // MBC 1
 			newSource = "https://shls-mbc1na-prod-dub.shahid.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8";		
@@ -716,7 +837,7 @@
 			newSource = "https://shls-mbc3-prod-dub.shahid.net/out/v1/d5bbe570e1514d3d9a142657d33d85e6/index.m3u8";
 		}
 		else if(channelID == 4) { // MBC 4
-			newSource = "https://shls-mbc5-prod-dub.shahid.net/out/v1/c08681f81775496ab4afa2bac7ae7638/index.m3u8";
+			newSource = "https://shls-mbc4-prod-dub.shahid.net/out/v1/c08681f81775496ab4afa2bac7ae7638/index.m3u8";
 		}	
 		else if(channelID == 5) { // MBC 5
 			newSource = "https://shls-mbc5-prod-dub.shahid.net/out/v1/2720564b6a4641658fdfb6884b160da2/index.m3u8";
@@ -757,6 +878,9 @@
 		else if(channelID == 19) { // Rotana Kids
 			newSource = "https://shls-rotanakids-prod-dub.shahid.net/out/v1/df6e0eb3cdc4410b98209aafc8677cef/index.m3u8";
 		}
+		else if(channelID == 20) { // Spacetoon
+			newSource = "https://shls-spacetoon-prod-dub.shahid.net/out/v1/6240b773a3f34cca95d119f9e76aec02/index.m3u8";
+		}
 		else if(channelID == 40) { // Thikryat
 			newSource = "https://thikrayat-tv-prod-dub.shahid.net/out/v1/ef87956651694f4ba2ccc16e852dbb95/index.m3u8";
 		}
@@ -769,6 +893,24 @@
 		}
 		else if(channelID == 22) { // IFILM English
 			newSource = "https://live1.presstv.ir/live/ifilmen.m3u8";
+		}
+		else if(channelID == 23) { // Majid
+			newSource = "https://admdn5.cdn.mangomolo.com/majid/smil:majid.stream.smil/playlist.m3u8";
+		}
+		else if(channelID == 24) { // Gulli Arabic
+			newSource = "https://shls-gulli-bil-arabi-prod-dub.shahid.net/out/v1/5454d215afba410c90b233f400730958/index.m3u8";
+		}
+		else if(channelID == 30) { // Bein Sports
+			newSource = "https://stitcher.pluto.tv/stitch/hls/channel/5df975e2b27cf5000921c102/master.m3u8?advertisingId=&appName=web&appVersion=6.5.0-9ff1ee0d9e1e1c67db8f8817391f92b423bc8726&app_name=web&clientDeviceType=0&clientID=03301a0d-2734-4c32-8562-744ec42925ee&clientModelNumber=1.0.0&country=US&deviceDNT=false&deviceId=03301a0d-2734-4c32-8562-744ec42925ee&deviceLat=40.7425&deviceLon=-73.9877&deviceMake=chrome&deviceModel=web&deviceType=web&deviceVersion=105.0.0&marketingRegion=US&serverSideAds=true&sessionID=4987fba7-39ec-11ed-b058-0242ac110003&sid=4987fba7-39ec-11ed-b058-0242ac110003&userId=&masterJWTPassthrough=true&gdpr=1&paln=&eventVOD=true";
+		}
+		else if(channelID == 31) { // Fox Sports
+			newSource = "https://stitcher.pluto.tv/stitch/hls/channel/5a74b8e1e22a61737979c6bf/master.m3u8?advertisingId=&appName=web&appVersion=6.5.0-9ff1ee0d9e1e1c67db8f8817391f92b423bc8726&app_name=web&clientDeviceType=0&clientID=03301a0d-2734-4c32-8562-744ec42925ee&clientModelNumber=1.0.0&country=US&deviceDNT=false&deviceId=03301a0d-2734-4c32-8562-744ec42925ee&deviceLat=40.7425&deviceLon=-73.9877&deviceMake=chrome&deviceModel=web&deviceType=web&deviceVersion=105.0.0&marketingRegion=US&serverSideAds=true&sessionID=4987fba7-39ec-11ed-b058-0242ac110003&sid=4987fba7-39ec-11ed-b058-0242ac110003&userId=&masterJWTPassthrough=true&gdpr=1&paln=&eventVOD=true";
+		}
+		else if(channelID == 32) { // Al Jazeera Arabic
+			newSource = "https://live-hls-web-aja.getaj.net/AJA/index.m3u8";
+		}
+		else if(channelID == 33) { // Al Jazeera English
+			newSource = "https://live-hls-web-aje.getaj.net/AJE/index.m3u8";
 		}
 		
 		if (newSource != null) {
