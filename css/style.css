@@ -15,6 +15,7 @@
 		margin-left: auto;
 		margin-right: auto;
 		user-select: none;
+		-webkit-tap-highlight-color: transparent;
 	}
 	
 	.vjs-progress-control
@@ -112,6 +113,8 @@
 		{
 			overflow: auto !important;
 		}
+		
+		
 	}
 	
 	.channelsHandler

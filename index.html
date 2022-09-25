@@ -698,6 +698,10 @@
 		}
 			
 		player = newplayer;
+		
+		player.on('volumechange', (e) => {
+			VolumeHandler();
+		});
 	}
 	
 	function CacheValue(key, value)
@@ -848,19 +852,12 @@
 		}
 	})();
 	
-	(function() {
-		document.addEventListener("click", function(e) {
-			const muteElement = document.querySelector(".vjs-mute-control");
-			if (muteElement != null && muteElement == e.target || muteElement.contains(e.target)) {
-				CacheValue("Muted", !player.muted());
-			}
-			
-			const volumeElement = document.querySelector(".vjs-volume-control");
-			if (volumeElement != null && volumeElement == e.target || volumeElement.contains(e.target)) {
-				CacheValue("Volume", player.volume());
-			}
-		}, true);
-	})();
+	function VolumeHandler() {
+		CacheValue("Muted", player.muted());
+		if (!player.muted()) {
+			CacheValue("Volume", player.volume());
+		}
+	}
 </script>
 
 <!--
