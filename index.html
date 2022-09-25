@@ -12,473 +12,14 @@
     <!-- Brightcove quality picker -->
     <link href="css/videojs-quality-menu.css" rel="stylesheet">
     <script src="js/videojs-quality-menu.min.js"></script>
+	
+	
+	 <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-	<style>
-		@font-face
-		{
-			
-			font-family: channelText;
-			src: url('font/channelText.ttf');
-		}
-		
-		body
-		{
-			margin: 0px;
-			width: 100.0vw;
-			height: 100.0vh;
-			background-color: #202021;
-			max-width: 700px;
-			margin-left: auto;
-			margin-right: auto;
-			user-select: none;
-		}
-		
-		.vjs-progress-control
-		{
-			cursor: unset !important;
-		}
-		
-		.vjs-progress-holder
-		{
-			display: none !important;
-		}
-		
-		.video-js
-		{
-			width: 100%;
-			height: 100%;
-			max-height: calc(100.0vw / 1.77);
-			margin-bottom: 20px;
-		}
-		
-		.vjs-big-play-button
-		{
-			position: absolute !important;
-			left: calc(50.0vw - 43px) !important;
-			top: calc(50% - 25px) !important;
-			background-color: #e60000 !important;
-			overflow: hidden !important;
-			border-radius: 20px !important;
-			border: none !important;
-			height: 50px !important;
-			width: 85px !important;
-		}
-		
-		.vjs-big-play-button .vjs-icon-placeholder:before
-		{
-			top: 2px !important;
-		}
-		
-		video
-		{
-			width: 100.0vw;
-			height: auto;
-		}
-		
-		i.fa-solid
-		{
-			margin-right: 3px;
-		}
-		
-		@media (pointer: fine) {
-			::-webkit-scrollbar
-			{
-				width: 15px;
-			}
-			::-webkit-scrollbar-thumb
-			{
-				background-color: grey;
-				border: 4px solid transparent;
-				border-radius: 20px;
-				background-clip: content-box;
-			}
-			.table tr:first-child
-			{
-				margin-top: -1px;
-			}
-			
-			.categories
-			{
-				cursor: pointer;
-			}
-			
-			.channelItem
-			{
-				cursor: pointer;
-			}
-			
-			.channelItem:hover		
-			{
-				background-color: #007373;
-			}
-		}
-		
-		@media (pointer: coarse) {
-			.categories
-			{
-				overflow: auto !important;
-			}
-		}
-		
-		.channelsHandler
-		{
-			height: calc(100.0vh - (100.0vw / 1.77) - 75px);
-			background-color: #202021;
-			padding: 0px 10px 50px 10px;
-			overflow: auto;
-			transition: opacity 0.15s linear;
-			position: relative;
-		}
-		
-		@media screen and (min-width: 700px)
-		{
-			video
-			{
-				border-radius: 4px;
-			}
-			
-			body
-			{
-				padding: 10px;
-				height: calc(100.0vh - 20px);
-				background-image: url('img/background.jpg');
-				background-position: center; /* Center the image */
-				background-repeat: no-repeat; /* Do not repeat the image */
-				background-size: cover;
-			}
-			
-			.video-js
-			{
-				border-radius: 4px;
-				max-height: 395px;
-			}
-			
-			.channelsHandler
-			{
-				height: calc(100.0vh - 395px - 110px) !important;
-				padding: 0px 10px 65px 10px !important;
-			}
-			
-			.vjs-big-play-button
-			{
-				left: calc(50% - 43px) !important;
-				top: calc((395px / 2) - 25px) !important;
-			}
-			
-			.categoriesHolder
-			{
-				display: none;
-			}
-			
-			.categories
-			{
-				bottom: 25px !important;
-			}
-		}
-		
-		@media screen and (min-width: 570px)
-		{
-			.channelItem
-			{
-				display: inline-block;
-				min-width: calc(50% - 25px);
-				margin-bottom: 5px !important;
-			}
-			
-			.channelItem
-			{
-				margin-right: 3px;
-			}
-		}
-		
-		.channelItem
-		{
-			position: relative;
-			background-color: teal;
-			padding: 10px;
-			border-radius: 4px;
-			overflow: hidden;
-			margin-bottom: 10px;
-			transition: transform 0.2s linear, background-color 0.2s linear;
-			height: 31px;
-		}
-		
-		.channelItem.active
-		{
-			background-color: #005e5e;
-		}
-		
-		.channelItem:active
-		{
-			background-color: #005e5e;
-			transform: scale(0.95);
-		}
-		
-		.channelName
-		{
-			font-family: 'channelText';
-			color: white;
-			display: inline-block;
-			position: relative;
-			top: 1px;
-			font-size: 1.4rem;
-			text-transform: uppercase;
-		}
-		
-		.channelIcon
-		{
-			display: inline-block;
-			float: right;
-		}
-		
-		.channelIcon.mbc1
-		{
-			overflow: hidden;
-			border-radius: 4px;
-			padding: 3px 4px 3px 4px;
-			background-color: white;
-		}
-		
-		.channelIcon.mbc1 > img
-		{
-			height: 25px;
-		}
-		
-		.channelIcon.mbc2 > img
-		{
-			position: absolute;
-			height: 44px;
-			right: 21px;
-			top: 1px;
-		}
-		
-		.channelIcon.mbc3 > img
-		{
-			position: absolute;
-			height: 41px;
-			right: 24px;
-			top: 5px;
-		}
-		
-		.channelIcon.mbc4 > img {
-			position: absolute;
-			height: 51px;
-			right: 21px;
-			top: 1px;
-		}
-		
-		.channelIcon.mbc5 > img {
-			position: absolute;
-			height: 45px;
-			right: 31px;
-			top: 3px;
-		}
-		
-		.channelIcon.mbcdrama > img {
-			position: absolute;
-			height: 36px;
-			right: 13px;
-			top: 9px;
-		}
-		
-		.channelIcon.mbcdramaplus > img {
-			position: absolute;
-			height: 44px;
-			right: 6px;
-			top: 4px;
-		}
-		
-		.channelIcon.mbcbollywood > img {
-			position: absolute;
-			height: 40px;
-			right: 6px;
-			top: 5px;
-			width: 90px;
-		}
-		
-		.channelIcon.sbcch > img {
-			position: absolute;
-			height: 45px;
-			right: 13px;
-			top: 2px;
-		}
-
-		.channelIcon.cnar > img {
-			position: absolute;
-			height: 43px;
-			right: 8px;
-			top: 1px;
-		}
-		
-		.channelIcon.rtkid > img {
-			position: absolute;
-			height: 42px;
-			right: 22px;
-			top: 5px;
-			border-radius: 50%;
-			background-color: white;
-		}
-		
-		.channelIcon.spacetoon > img {
-			position: absolute;
-			height: 42px;
-			right: 8px;
-			top: 4px;
-		}
-		
-		.channelIcon.majidkids > img {
-			position: absolute;
-			height: 39px;
-			right: 5px;
-			top: 6px;
-		}
-		
-		.channelIcon.gulliarabic > img {
-			position: absolute;
-			height: 42px;
-			right: 22px;
-			top: 5px;
-		}
-		
-		.channelIcon.thirkyat > img {
-			position: absolute;
-			height: 46px;
-			right: 12px;
-			top: 2px;
-		}
-		
-		.channelIcon.ifilm > img {
-			position: absolute;
-			height: 32px;
-			right: 10px;
-			top: 8px;
-		}
-		
-		.channelIcon.mbcmasr > img {
-			position: absolute;
-			height: 43px;
-			right: 12px;
-			top: 5px;
-		}
-		
-		.channelIcon.mbcmasr2 > img {
-			position: absolute;
-			height: 41px;
-			right: 22px;
-			top: 5px;
-			border-radius: 3px;
-		}
-		
-		.channelIcon.mbciraq > img {
-			position: absolute;
-			height: 34px;
-			right: 8px;
-			top: 9px;
-			width: 79px;
-		}
-		
-		.channelIcon.mbcfm > img {
-			position: absolute;
-			height: 41px;
-			right: 8px;
-			top: 5px;
-			width: 79px;
-		}
-		
-		.channelIcon.mbcpersia > img {
-			position: absolute;
-			height: 41px;
-			right: 4px;
-			top: 5px;
-			border-radius: 3px;
-		}
-		
-		.channelIcon.panoramafm > img {
-			position: absolute;
-			height: 41px;
-			right: 5px;
-			top: 5px;
-			border-radius: 5px;
-		}
-		
-		.pageHolder
-		{
-			background-color: #202021;
-		}
-		
-		.categories
-		{
-			background-color: rgba(255, 255, 255, 0.6);
-			border-radius: 15px;
-			text-align: left;
-			padding: 1px 0px;
-			overflow: hidden;
-			white-space: nowrap;		
-			position: fixed;
-			bottom: 5px;
-			left: 10px;
-			right: 10px;
-			margin-right: auto;
-			margin-left: auto;
-			max-width: 650px;
-			border: 7px solid transparent;
-		}
-		
-		.categoriesHolder
-		{
-			position: fixed;
-			bottom: 0px;
-			height: 55px;
-			background-color: #202021;
-			left: 0px;
-			right: 0px;
-		}
-		
-		.category {
-			font-family: 'channelText';
-			display: inline-block;
-			background-color: teal;
-			color: white;
-			padding: 5px 8px;
-			border-radius: 10px;
-			transition: background 0.2s linear;
-			font-size: 1.06rem;
-		}
-		
-		.category.active
-		{
-			background-color: #006666;
-		}
-		
-		.channelItem[data-brokenimg="true"] {
-			background: linear-gradient(130deg, #044b6c, #25a391);
-		}
-		
-		.channelItem.active[data-brokenimg="true"] {
-			background: linear-gradient(130deg, #033850, #087465);
-		}
-		.channelIcon.brokenimg {
-			display: none;
-		}
-		
-		.channelItem[data-brokenimg="true"][data-value~="SPORTS"] > .channelName:before {
-			content: "\f1e3";
-			font-family: 'Font Awesome 6 Pro';
-			font-weight: 900;
-			margin-right: 2px;
-		}
-		
-		.channelItem[data-brokenimg="true"][data-value~="NEWS"] > .channelName:before {
-			content: "\f1ea";
-			font-family: 'Font Awesome 6 Pro';
-			font-weight: 900;
-			margin-right: 2px;
-		}
-	</style>
-
 	<div class="pageHolder">
+		<div class="videoHandler">
 		<!--
 		<video id="videoPlayer" class="video-js" controls>
 			<source type="application/x-mpegURL" src="https://shls-mbcdramaksa-ak.akamaized.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8" />
@@ -489,7 +30,7 @@
 			</p>
 		</video>
 		-->
-		
+		</div>
 		<div class="channelsHandler">
 			<div class="channelItem" onclick="openChannel(this, 0)">
 				<div class="channelName mbc1">
@@ -663,6 +204,86 @@
 				</div>
 			</div>
 			
+			<div class="channelItem" onclick="openChannel(this, 25)" data-value="AR FILM">
+				<div class="channelName">
+					LBC Channel
+				</div>
+				<div class="channelIcon lbc">
+					<img src="img/lbclogo.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 26)" data-value="AR FILM">
+				<div class="channelName">
+					Rotana Khalijia
+				</div>
+				<div class="channelIcon rtkid">
+					<img src="img/rotanakhalijiat.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 27)" data-value="AR FILM">
+				<div class="channelName">
+					Rotana Cinema
+				</div>
+				<div class="channelIcon rtkid">
+					<img src="img/rtcinemalogo.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 28)" data-value="AR FILM">
+				<div class="channelName">
+					Rotana Cinema Egy
+				</div>
+				<div class="channelIcon rtkid">
+					<img src="img/rtcinemaegylogo.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 29)" data-value="AR FILM">
+				<div class="channelName">
+					Rotana Classic
+				</div>
+				<div class="channelIcon rtkid">
+					<img src="img/rtclassiclogo.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 34)" data-value="AR FILM">
+				<div class="channelName">
+					Rotana Drama
+				</div>
+				<div class="channelIcon rtkid">
+					<img src="img/rtdramalogo.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 35)" data-value="AR FILM">
+				<div class="channelName">
+					Rotana Clips
+				</div>
+				<div class="channelIcon rtkid">
+					<img src="img/rtclipslogo.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 36)" data-value="AR FILM">
+				<div class="channelName">
+					Rotana Comedy
+				</div>
+				<div class="channelIcon rtkid">
+					<img src="img/rtcomedylogo.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 37)" data-value="AR MUSIC">
+				<div class="channelName">
+					Rotana Music
+				</div>
+				<div class="channelIcon rtkid">
+					<img src="img/rtmusiclogo.png" />
+				</div>
+			</div>
 			
 			<div class="channelItem" onclick="openChannel(this, 40)" data-value="AR FILM">
 				<div class="channelName thirkyat">
@@ -727,6 +348,48 @@
 				</div>
 				<div class="channelIcon brokenimg">
 					<img src="img/mbc1logo.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 38)" data-value="AR SPORTS">
+				<div class="channelName">
+					Al Kaas One
+				</div>
+				<div class="channelIcon alkaas">
+					<img src="img/alkaaslogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 39)" data-value="AR SPORTS">
+				<div class="channelName">
+					Al Kaas Two
+				</div>
+				<div class="channelIcon alkaas">
+					<img src="img/alkaaslogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 41)" data-value="AR SPORTS">
+				<div class="channelName">
+					Al Kaas Three
+				</div>
+				<div class="channelIcon alkaas">
+					<img src="img/alkaaslogo.png" />
+				</div>
+			</div>
+			<div class="channelItem" onclick="openChannel(this, 42)" data-value="AR SPORTS">
+				<div class="channelName">
+					Al Kaas Four
+				</div>
+				<div class="channelIcon alkaas">
+					<img src="img/alkaaslogo.png" />
+				</div>
+			</div>
+			
+			<div class="channelItem" onclick="openChannel(this, 43)" data-value="AR SPORTS">
+				<div class="channelName">
+					Al Kaas Online
+				</div>
+				<div class="channelIcon alkaas">
+					<img src="img/alkaaslogo.png" />
 				</div>
 			</div>
 		</div>
@@ -827,8 +490,13 @@
 			
 			//newSource = "https://vs-hls-push-uk-live.akamaized.net/x=3/i=urn:bbc:pips:service:bbc_news_channel_hd/pc_hd_abr_v2.m3u8";
 			
-			newSource = "http://myott.top/stream/DT6QU63K5VX/85.m3u8?checkedby:iptvcat.com";
+			//newSource = "http://myott.top/stream/DT6QU63K5VX/85.m3u8?checkedby:iptvcat.com";
 			
+			//newSource = "https://dai.google.com/linear/hls/pa/event/_KNLEUGwTJClZGHiPgN9hA/stream/b72893e5-dc58-4757-ab4a-ac62a4c118bd:GRQ/master.m3u8";
+			
+			//https://www.alkass.net/alkass/live.aspx?ch=two
+			
+			newSource = "https://livebs.alkassdigital.net/hls/live/2094545/Alkass2wazq/master.m3u8?hdnts=exp=1664095800~hmac=0fabccb7465484db9e61ae33da47605efedad16955efc9483d7f75532b9084ea";
 		}
 		else if (channelID == 1) { // MBC 1
 			newSource = "https://shls-mbc1na-prod-dub.shahid.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8";		
@@ -876,7 +544,7 @@
 			newSource = "https://shls-cartoon-net-prod-dub.shahid.net/out/v1/dc4aa87372374325a66be458f29eab0f/index.m3u8";
 		}
 		else if(channelID == 19) { // Rotana Kids
-			newSource = "https://shls-rotanakids-prod-dub.shahid.net/out/v1/df6e0eb3cdc4410b98209aafc8677cef/index.m3u8";
+			newSource = "https://hiplayer.hibridcdn.net/p/rotana-kids?p=48&s=1664088213&e=1664174613&cf=1664174613&h=2baabaaa1b5ba18cb833d0f74d96deee"; //"https://shls-rotanakids-prod-dub.shahid.net/out/v1/df6e0eb3cdc4410b98209aafc8677cef/index.m3u8";
 		}
 		else if(channelID == 20) { // Spacetoon
 			newSource = "https://shls-spacetoon-prod-dub.shahid.net/out/v1/6240b773a3f34cca95d119f9e76aec02/index.m3u8";
@@ -900,6 +568,21 @@
 		else if(channelID == 24) { // Gulli Arabic
 			newSource = "https://shls-gulli-bil-arabi-prod-dub.shahid.net/out/v1/5454d215afba410c90b233f400730958/index.m3u8";
 		}
+		else if(channelID == 25) { // LBC
+			newSource = {URL: "https://pubads.g.doubleclick.net/ssai/event/_KNLEUGwTJClZGHiPgN9hA/streams", Key: "C3D56F6143333B8BBF228E615B417C26499F26E0624B355E5BD407A124334702"};
+		}
+		else if(channelID == 26) { // Rotana Khalijia 
+			newSource = {URL: "https://pubads.g.doubleclick.net/ssai/event/Ow9HolmDThGX9-D9EOdrHw/streams", Key: "C89793703399AA0FD07F5475FD4CBD4FD6BB0683C6E9D079863CE2793194E22E"};
+		}
+		else if(channelID == 27) { // Rotana Cinema 
+			newSource = {URL: "https://pubads.g.doubleclick.net/ssai/event/TTfW9QXGRVCBzHoEKgyrWA/streams", Key: "88D09F1CD28ABC186D737731B5010534130976C242A243893416CDFEF3933B94"};
+		}
+		else if(channelID == 28) { // Rotana Cinema Egypt 
+			newSource = {URL: "https://pubads.g.doubleclick.net/ssai/event/3nre1M54SiWmGzcTHQlLDA/streams", Key: "FC3C089FDE7B3C62B9DC5AFF21342B9624C5FD5AD956DCEAB5244BF9DBC2038E"};
+		}
+		else if(channelID == 29) { // Rotana Classic
+			newSource = {URL: "https://pubads.g.doubleclick.net/ssai/event/0tkMWr6yRQiPO4uXSLCpLA/streams", Key: "10B14B7AAD654A89F7B918EF70D2ECA648B5DB5A6E20602C6D12A8EDEE6FC590"};
+		}
 		else if(channelID == 30) { // Bein Sports
 			newSource = "https://stitcher.pluto.tv/stitch/hls/channel/5df975e2b27cf5000921c102/master.m3u8?advertisingId=&appName=web&appVersion=6.5.0-9ff1ee0d9e1e1c67db8f8817391f92b423bc8726&app_name=web&clientDeviceType=0&clientID=03301a0d-2734-4c32-8562-744ec42925ee&clientModelNumber=1.0.0&country=US&deviceDNT=false&deviceId=03301a0d-2734-4c32-8562-744ec42925ee&deviceLat=40.7425&deviceLon=-73.9877&deviceMake=chrome&deviceModel=web&deviceType=web&deviceVersion=105.0.0&marketingRegion=US&serverSideAds=true&sessionID=4987fba7-39ec-11ed-b058-0242ac110003&sid=4987fba7-39ec-11ed-b058-0242ac110003&userId=&masterJWTPassthrough=true&gdpr=1&paln=&eventVOD=true";
 		}
@@ -912,10 +595,39 @@
 		else if(channelID == 33) { // Al Jazeera English
 			newSource = "https://live-hls-web-aje.getaj.net/AJE/index.m3u8";
 		}
+		else if(channelID == 34) { // Rotana Drama
+			newSource = {URL: "https://pubads.g.doubleclick.net/ssai/event/LTh4MBRkRgaAb-mcTDJbJw/streams", Key: "2BD4F3E902A1F5D66FF3FB275085B69725063B5771669312C2CC15FF0807FC91"};
+		}
+		else if(channelID == 35) { // Rotana Clip
+			newSource = "https://hiplayer.hibridcdn.net/p/rotana-clip?p=48&s=1664091048&e=1664177448&cf=1664177448&h=b91ecce47a61579a5bf615327ce05cbd";
+		}
+		else if(channelID == 36) { // Rotana Comedy
+			newSource =  {URL: "https://pubads.g.doubleclick.net/ssai/event/cH1Es-kjT9yxOW7P5ZUGTw/streams", Key: "588C2A4B9DA7D18A42A8828AD0DDE24503567EAAD0E59E8C60EBA5C0E16ABECB"};
+		}
+		else if(channelID == 37) { // Rotana Music
+			newSource =  {URL: "https://pubads.g.doubleclick.net/ssai/event/zucIDa11STqipyr8-WPsTw/streams", Key: "0471E64C79B3A8BF4C637AB833CC9159D802CDAB856D4637B0CAD304AC3B2C9F"};
+		}
+		else if(channelID == 38) {  // Al Kaas One
+			newSource = "https://www.alkass.net/alkass/live.aspx?ch=one";
+		}
+		else if(channelID == 39) {  // Al Kaas Two
+			newSource = "https://www.alkass.net/alkass/live.aspx?ch=two";
+		}
+		else if(channelID == 41) {  // Al Kaas Three
+			newSource = "https://www.alkass.net/alkass/live.aspx?ch=three";
+		}
+		else if(channelID == 42) {  // Al Kaas Four
+			newSource = "https://www.alkass.net/alkass/live.aspx?ch=four";
+		}
+		else if(channelID == 43) {  // Al Kaas Online
+			newSource = "https://www.alkass.net/alkass/live.aspx?ch=online";
+		}
 		
-		if (newSource != null) {
+		
+	
+		if (newSource != null) {			
 			CacheValue("URL", newSource);
-			LoadVideo(newSource, true);
+			LoadVideo(newSource, true, GetCachedValue("Muted", false), GetCachedValue("Volume", 1));
 		}
 		
 		
@@ -948,17 +660,37 @@
 		errorText.innerHTML = "To view this video please enable JavaScript, and consider upgrading to a web browser that <a href=\"https://videojs.com/html5-video-support/\" target=\"_blank\">supports HTML5 video</a>";
 		videoParent.appendChild(errorText);
 		
-		document.querySelector(".pageHolder").insertBefore(videoParent, document.querySelector(".channelsHandler"));
+		document.querySelector(".videoHandler").appendChild(videoParent);
 	}
 	
-	function LoadVideo(newSource, autoplay)
+	let channelRequestID = 0;
+	
+	function LoadVideo(newSource, autoplay, ismuted, volume)
 	{
-		if (player != null)
+		if (player != null) {
 			player.dispose();
-			
+			player = null;
+		}
+		
+		if (typeof(newSource) !== 'string') {
+			PlayRotanaChannel(newSource, autoplay);
+			return;
+		}
+		else if(newSource.startsWith("https://www.alkass.net")) {
+			PlayAlkassChannel(newSource, autoplay);
+			return;
+		}
+		else {
+			channelRequestID++;
+		}
+		
 		refreshVideoItem(newSource);
-			
-		let newplayer = videojs('videoPlayer', options);
+	
+		options.muted = ismuted;
+		
+		let newplayer = videojs('videoPlayer', options, function() {
+			this.volume(volume);
+		});
 		newplayer.qualityMenu();
 		
 		if (autoplay) {
@@ -990,6 +722,67 @@
 			localStorage.setItem("lastChannel", JSON.stringify(jsonObject));
 		}
 	}
+	
+	function GetCachedValue(key, defaultvalue) {
+		let lastChannel = localStorage.getItem("lastChannel");
+		if (lastChannel != null) {
+			try
+			{
+				lastChannel = JSON.parse(lastChannel);
+				if (key in lastChannel) {
+					return lastChannel[key];
+				}
+				else {
+					return defaultvalue;
+				}
+			}
+			catch {
+				return defaultvalue;
+			}
+		}
+		else {
+			return defaultvalue;
+		}
+	}
+	
+	function PlayRotanaChannel(sourceLink, autoplay) {
+		channelRequestID++;
+		let mychannelID = channelRequestID;
+		
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 201 && mychannelID == channelRequestID) {
+				let jsonResponse = JSON.parse(xhttp.responseText);
+				LoadVideo(jsonResponse.stream_manifest, autoplay, GetCachedValue("Muted", false), GetCachedValue("Volume", 1));
+			}
+		};
+		xhttp.open("POST", sourceLink.URL, true);
+		xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+		xhttp.send("api-key=" + sourceLink.Key);
+	}
+	
+	function PlayAlkassChannel(sourceLink, autoplay) {
+		channelRequestID++;
+		let mychannelID = channelRequestID;
+	
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200 && mychannelID == channelRequestID) {
+				let htmlResponse = xhttp.responseText;
+				let srcIndex = htmlResponse.indexOf("src: \"");
+				if (srcIndex != -1) {
+					srcIndex += 6;
+					let srcFinish = htmlResponse.indexOf('"', srcIndex);				
+					let sourceURL = htmlResponse.substr(srcIndex, srcFinish - srcIndex);
+					
+					LoadVideo(sourceURL, autoplay, GetCachedValue("Muted", false), GetCachedValue("Volume", 1));
+				}
+			}
+		};
+		xhttp.open("GET", sourceLink, true);
+		xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+		xhttp.send();
+	}
 </script>
 
 <script src="js/scroller.js"></script>
@@ -1002,9 +795,20 @@
 			let succeded = false;
 			try {
 				lastChannel = JSON.parse(lastChannel);
+				
+				let muted = false, volume = 1;
+				
+				if ('Muted' in lastChannel) {
+					muted = lastChannel.Muted;
+				}
+				
+				if ('Volume' in lastChannel) {
+					volume = lastChannel.Volume;
+				}
+				
 				if ('URL' in lastChannel) {
 					succeded = true;
-					LoadVideo(lastChannel.URL, false);
+					LoadVideo(lastChannel.URL, false, muted, volume);
 				}
 
 				if ('Category' in lastChannel) {
@@ -1036,12 +840,26 @@
 				
 			}
 			if (!succeded) {
-				LoadVideo("https://shls-mbc1na-prod-dub.shahid.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8", false);
+				LoadVideo("https://shls-mbc1na-prod-dub.shahid.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8", false, GetCachedValue("Muted", false), GetCachedValue("Volume", 1));
 			}
 		}
 		else {
-			LoadVideo("https://shls-mbc1na-prod-dub.shahid.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8", false);
+			LoadVideo("https://shls-mbc1na-prod-dub.shahid.net/out/v1/84ab37e99d6e4b16b33c6600f94f6ccb/index.m3u8", false, GetCachedValue("Muted", false), GetCachedValue("Volume", 1));
 		}
+	})();
+	
+	(function() {
+		document.addEventListener("click", function(e) {
+			const muteElement = document.querySelector(".vjs-mute-control");
+			if (muteElement != null && muteElement == e.target || muteElement.contains(e.target)) {
+				CacheValue("Muted", !player.muted());
+			}
+			
+			const volumeElement = document.querySelector(".vjs-volume-control");
+			if (volumeElement != null && volumeElement == e.target || volumeElement.contains(e.target)) {
+				CacheValue("Volume", player.volume());
+			}
+		}, true);
 	})();
 </script>
 

@@ -1,0 +1,499 @@
+	@font-face
+	{
+		
+		font-family: channelText;
+		src: url('../font/channelText.ttf');
+	}
+	
+	body
+	{
+		margin: 0px;
+		width: 100.0vw;
+		height: 100.0vh;
+		background-color: #202021;
+		max-width: 700px;
+		margin-left: auto;
+		margin-right: auto;
+		user-select: none;
+	}
+	
+	.vjs-progress-control
+	{
+		cursor: unset !important;
+	}
+	
+	.vjs-progress-holder
+	{
+		display: none !important;
+	}
+	
+	.video-js
+	{
+		width: 100%;
+		height: 100%;
+		max-height: calc(100.0vw / 1.77);
+		
+		/*margin-bottom: 20px;*/
+	}
+	
+	.videoHandler
+	{
+		background-color: black;
+		width: 100%;
+		height: 100%;
+		max-height: calc(100.0vw / 1.77);
+		margin-bottom: 20px;
+	}
+	
+	.vjs-big-play-button
+	{
+		position: absolute !important;
+		left: calc(50.0vw - 43px) !important;
+		top: calc(50% - 25px) !important;
+		background-color: #e60000 !important;
+		overflow: hidden !important;
+		border-radius: 20px !important;
+		border: none !important;
+		height: 50px !important;
+		width: 85px !important;
+	}
+	
+	.vjs-big-play-button .vjs-icon-placeholder:before
+	{
+		top: 2px !important;
+	}
+	
+	video
+	{
+		width: 100.0vw;
+		height: auto;
+	}
+	
+	i.fa-solid
+	{
+		margin-right: 3px;
+	}
+	
+	@media (pointer: fine) {
+		::-webkit-scrollbar
+		{
+			width: 15px;
+		}
+		::-webkit-scrollbar-thumb
+		{
+			background-color: grey;
+			border: 4px solid transparent;
+			border-radius: 20px;
+			background-clip: content-box;
+		}
+		.table tr:first-child
+		{
+			margin-top: -1px;
+		}
+		
+		.categories
+		{
+			cursor: pointer;
+		}
+		
+		.channelItem
+		{
+			cursor: pointer;
+		}
+		
+		.channelItem:hover		
+		{
+			background-color: #007373;
+		}
+	}
+	
+	@media (pointer: coarse) {
+		.categories
+		{
+			overflow: auto !important;
+		}
+	}
+	
+	.channelsHandler
+	{
+		height: calc(100.0vh - (100.0vw / 1.77) - 75px);
+		background-color: #202021;
+		padding: 0px 10px 50px 10px;
+		overflow: auto;
+		transition: opacity 0.15s linear;
+		position: relative;
+	}
+	
+	@media screen and (min-width: 700px)
+	{
+		video
+		{
+			border-radius: 4px;
+		}
+		
+		body
+		{
+			padding: 10px;
+			height: calc(100.0vh - 20px);
+			background-image: url('../img/background.jpg');
+			background-position: center; /* Center the image */
+			background-repeat: no-repeat; /* Do not repeat the image */
+			background-size: cover;
+		}
+		
+		.video-js
+		{
+			border-radius: 4px;
+			max-height: 395px;
+		}
+		
+		.videoHandler {
+			border-radius: 4px;
+			max-height: 395px;
+		}
+		
+		.channelsHandler
+		{
+			height: calc(100.0vh - 395px - 110px) !important;
+			padding: 0px 10px 5px 10px !important;
+		}
+		
+		.vjs-big-play-button
+		{
+			left: calc(50% - 43px) !important;
+			top: calc((395px / 2) - 25px) !important;
+		}
+		
+		.categoriesHolder
+		{
+			display: none;
+		}
+		
+		.categories
+		{
+			bottom: 20px !important;
+		}
+		
+		.pageHolder
+		{
+			height: calc(100.0vh - 25px);
+		}
+	}
+	
+	@media screen and (min-width: 570px)
+	{
+		.channelItem
+		{
+			display: inline-block;
+			min-width: calc(50% - 25px);
+			margin-bottom: 5px !important;
+		}
+		
+		.channelItem
+		{
+			margin-right: 3px;
+		}
+	}
+	
+	.channelItem
+	{
+		position: relative;
+		background-color: teal;
+		padding: 10px;
+		border-radius: 4px;
+		overflow: hidden;
+		margin-bottom: 10px;
+		transition: transform 0.2s linear, background-color 0.2s linear;
+		height: 31px;
+	}
+	
+	.channelItem.active
+	{
+		background-color: #005e5e;
+	}
+	
+	.channelItem:active
+	{
+		background-color: #005e5e;
+		transform: scale(0.95);
+	}
+	
+	.channelName
+	{
+		font-family: 'channelText';
+		color: white;
+		display: inline-block;
+		position: relative;
+		top: 1px;
+		font-size: 1.4rem;
+		text-transform: uppercase;
+	}
+	
+	.channelIcon
+	{
+		display: inline-block;
+		float: right;
+	}
+	
+	.channelIcon.mbc1
+	{
+		overflow: hidden;
+		border-radius: 4px;
+		padding: 3px 4px 3px 4px;
+		background-color: white;
+	}
+	
+	.channelIcon.mbc1 > img
+	{
+		height: 25px;
+	}
+	
+	.channelIcon.mbc2 > img
+	{
+		position: absolute;
+		height: 44px;
+		right: 21px;
+		top: 1px;
+	}
+	
+	.channelIcon.mbc3 > img
+	{
+		position: absolute;
+		height: 41px;
+		right: 24px;
+		top: 5px;
+	}
+	
+	.channelIcon.mbc4 > img {
+		position: absolute;
+		height: 51px;
+		right: 21px;
+		top: 1px;
+	}
+	
+	.channelIcon.mbc5 > img {
+		position: absolute;
+		height: 45px;
+		right: 31px;
+		top: 3px;
+	}
+	
+	.channelIcon.mbcdrama > img {
+		position: absolute;
+		height: 36px;
+		right: 13px;
+		top: 9px;
+	}
+	
+	.channelIcon.mbcdramaplus > img {
+		position: absolute;
+		height: 44px;
+		right: 6px;
+		top: 4px;
+	}
+	
+	.channelIcon.mbcbollywood > img {
+		position: absolute;
+		height: 40px;
+		right: 6px;
+		top: 5px;
+		width: 90px;
+	}
+	
+	.channelIcon.sbcch > img {
+		position: absolute;
+		height: 45px;
+		right: 13px;
+		top: 2px;
+	}
+
+	.channelIcon.cnar > img {
+		position: absolute;
+		height: 43px;
+		right: 8px;
+		top: 1px;
+	}
+	
+	.channelIcon.rtkid > img {
+		position: absolute;
+		height: 42px;
+		right: 22px;
+		top: 4px;
+		border-radius: 50%;
+		background-color: white;
+	}
+	
+	.channelIcon.spacetoon > img {
+		position: absolute;
+		height: 42px;
+		right: 8px;
+		top: 4px;
+	}
+	
+	.channelIcon.majidkids > img {
+		position: absolute;
+		height: 39px;
+		right: 5px;
+		top: 6px;
+	}
+	
+	.channelIcon.gulliarabic > img {
+		position: absolute;
+		height: 42px;
+		right: 22px;
+		top: 5px;
+	}
+	
+	.channelIcon.lbc > img {
+		position: absolute;
+		height: 33px;
+		right: 8px;
+		top: 9px;
+	}
+	
+	.channelIcon.thirkyat > img {
+		position: absolute;
+		height: 46px;
+		right: 12px;
+		top: 2px;
+	}
+	
+	.channelIcon.ifilm > img {
+		position: absolute;
+		height: 32px;
+		right: 10px;
+		top: 8px;
+	}
+	
+	.channelIcon.mbcmasr > img {
+		position: absolute;
+		height: 43px;
+		right: 12px;
+		top: 5px;
+	}
+	
+	.channelIcon.mbcmasr2 > img {
+		position: absolute;
+		height: 41px;
+		right: 22px;
+		top: 5px;
+		border-radius: 3px;
+	}
+	
+	.channelIcon.mbciraq > img {
+		position: absolute;
+		height: 34px;
+		right: 8px;
+		top: 9px;
+		width: 79px;
+	}
+	
+	.channelIcon.mbcfm > img {
+		position: absolute;
+		height: 41px;
+		right: 8px;
+		top: 5px;
+		width: 79px;
+	}
+	
+	.channelIcon.mbcpersia > img {
+		position: absolute;
+		height: 41px;
+		right: 4px;
+		top: 5px;
+		border-radius: 3px;
+	}
+	
+	.channelIcon.panoramafm > img {
+		position: absolute;
+		height: 41px;
+		right: 5px;
+		top: 5px;
+		border-radius: 5px;
+	}
+	
+	.channelIcon.alkaas > img {
+		position: absolute;
+		height: 41px;
+		right: 6px;
+		top: 5px;
+		border-radius: 3px;
+	}
+	
+	.pageHolder
+	{
+		background-color: #202021;
+	}
+	
+	.categories
+	{
+		background-color: rgba(255, 255, 255, 0.6);
+		border-radius: 15px;
+		text-align: left;
+		padding: 1px 0px;
+		overflow: hidden;
+		white-space: nowrap;		
+		position: fixed;
+		bottom: 5px;
+		left: 10px;
+		right: 10px;
+		margin-right: auto;
+		margin-left: auto;
+		max-width: 650px;
+		border: 7px solid transparent;
+	}
+	
+	.categoriesHolder
+	{
+		position: fixed;
+		bottom: 0px;
+		height: 60px;
+		background-color: #202021;
+		left: 0px;
+		right: 0px;
+	}
+	
+	.category {
+		font-family: 'channelText';
+		display: inline-block;
+		background-color: teal;
+		color: white;
+		padding: 5px 8px;
+		border-radius: 10px;
+		transition: background 0.2s linear;
+		font-size: 1.06rem;
+	}
+	
+	.category:hover {
+		background-color: #006e6e;
+	}
+	
+	.category.active
+	{
+		background-color: #006666;
+	}
+	
+	.channelItem[data-brokenimg="true"] {
+		background: linear-gradient(130deg, #044b6c, #25a391);
+	}
+	
+	.channelItem.active[data-brokenimg="true"] {
+		background: linear-gradient(130deg, #033850, #087465);
+	}
+	.channelIcon.brokenimg {
+		display: none;
+	}
+	
+	.channelItem[data-brokenimg="true"][data-value~="SPORTS"] > .channelName:before {
+		content: "\f1e3";
+		font-family: 'Font Awesome 6 Pro';
+		font-weight: 900;
+		margin-right: 2px;
+	}
+	
+	.channelItem[data-brokenimg="true"][data-value~="NEWS"] > .channelName:before {
+		content: "\f1ea";
+		font-family: 'Font Awesome 6 Pro';
+		font-weight: 900;
+		margin-right: 2px;
+	}
